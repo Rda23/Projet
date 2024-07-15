@@ -1,0 +1,2 @@
+Login: e | Mail: r@e | Mot de passe: e
+Login: e | Mail: e@gmail.com | Mot de passe: e
