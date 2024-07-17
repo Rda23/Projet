@@ -15,7 +15,7 @@
       <h2>Login</h2>
       <form action='login_verif.php' method="GET" class="case">
          Login: <input type="text" name="nom"/><br><br>
-         MDP: <input type="text" name="motdepasse"/>
+         MDP: <input type="password" name="motdepasse"/> 
          <br><br>
          <input class="envoyer" type="submit" value="Connexion">
       </form>

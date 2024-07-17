@@ -1,25 +1,20 @@
 <?php
+require 'config.php'; 
+
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $nom = $_GET['nom'];
     $motdepasse = $_GET['motdepasse'];
 
-    $file = 'comptes.txt';
+   
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt->execute(['username' => $nom]);
+    $user = $stmt->fetch();
 
-    if (file_exists($file)) {
-        $lines = file($file, FILE_IGNORE_NEW_LINES);
-        
-        foreach ($lines as $line) {
-            $info = explode('|', $line);
-            $loginSave = trim(str_replace('Login:', '', $info[0]));
-            $mdpSave = trim(str_replace('Mot de passe:', '', $info[2]));
-            
-            if ($nom == $loginSave && $motdepasse == $mdpSave) {
-                header('Location: produits.php');
-                exit;
-            }
-        }
+    if ($user && password_verify($motdepasse, $user['password'])) {
+        header('Location: produits.php');
+        exit;
+    } else {
+        header('Location: login_fail.php');
     }
-
-    header('Location: login_fail.php');
 }
 ?>
